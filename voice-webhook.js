@@ -4,7 +4,12 @@ const port = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 
-// Respond to Twilio with TwiML <Start><Stream>
+// 🔊 Health check for Railway
+app.get('/', (req, res) => {
+  res.send('Voice Webhook API is running!');
+});
+
+// ☎️ Respond to Twilio with <Start><Stream>
 app.post('/voice', (req, res) => {
   const response = `
     <Response>
@@ -19,7 +24,6 @@ app.post('/voice', (req, res) => {
   res.send(response);
 });
 
-// Start server
 app.listen(port, () => {
-  console.log(`Voice webhook server running on port ${port}`);
+  console.log(`✅ Voice webhook server running on port ${port}`);
 });
