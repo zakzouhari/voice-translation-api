@@ -1,11 +1,17 @@
 {
-  "name": "voice-translation-api",
+  "name": "voice-translator-server",
   "version": "1.0.0",
-  "main": "voice-webhook.js",
+  "description": "Real-time voice translation server using Whisper and GPT",
+  "main": "server.js",
   "scripts": {
-    "start": "node voice-webhook.js"
+    "start": "node server.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.4.5",
+    "openai": "^4.29.1",
+    "ws": "^8.13.0"
   }
 }
