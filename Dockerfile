@@ -1,18 +1,20 @@
-# Use official Node.js image
+# Use Node.js LTS image
 FROM node:18
 
 # Set working directory
 WORKDIR /app
 
-# Copy package and install deps
+# Copy only package.json and package-lock.json first for better caching
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy app files
+# Copy the rest of the application
 COPY . .
 
-# Expose port
+# Expose the port your server listens on (adjust if different)
 EXPOSE 8080
 
-# Start the app
-CMD ["node", "voice-webhook.js"]
+# Default command to run your server
+CMD ["node", "server.js"]
