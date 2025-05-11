@@ -1,19 +1,34 @@
-{
-  "name": "voice-translator-server",
-  "version": "1.0.0",
-  "description": "WebSocket server for real-time voice translation using Twilio and OpenAI Whisper.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "openai": "^4.0.0",
-    "ws": "^8.13.0",
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "license": "MIT"
-}
+// server.js
+
+require('dotenv').config();
+const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
+
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+  console.log('WebSocket client connected.');
+
+  ws.on('message', async (message) => {
+    console.log('Received:', message);
+
+    // Example: Echo the message back (replace this with OpenAI Whisper logic)
+    ws.send(`Echo: ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('WebSocket client disconnected.');
+  });
+});
+
+app.get('/', (req, res) => {
+  res.send('Voice Translator Server is running');
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
